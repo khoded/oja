@@ -15,8 +15,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * ControllerResolver.
- *
  * This implementation uses the '_controller' request attribute to determine
  * the controller to execute and uses the request attributes to determine
  * the controller method arguments.
@@ -43,11 +41,6 @@ class ControllerResolver implements ArgumentResolverInterface, ControllerResolve
      */
     private $supportsScalarTypes;
 
-    /**
-     * Constructor.
-     *
-     * @param LoggerInterface $logger A LoggerInterface instance
-     */
     public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
@@ -108,7 +101,7 @@ class ControllerResolver implements ArgumentResolverInterface, ControllerResolve
      */
     public function getArguments(Request $request, $controller)
     {
-        @trigger_error(sprintf('%s is deprecated as of 3.1 and will be removed in 4.0. Implement the %s and inject it in the HttpKernel instead.', __METHOD__, ArgumentResolverInterface::class), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated as of 3.1 and will be removed in 4.0. Implement the %s and inject it in the HttpKernel instead.', __METHOD__, ArgumentResolverInterface::class), E_USER_DEPRECATED);
 
         if (is_array($controller)) {
             $r = new \ReflectionMethod($controller[0], $controller[1]);
@@ -133,7 +126,7 @@ class ControllerResolver implements ArgumentResolverInterface, ControllerResolve
      */
     protected function doGetArguments(Request $request, $controller, array $parameters)
     {
-        @trigger_error(sprintf('%s is deprecated as of 3.1 and will be removed in 4.0. Implement the %s and inject it in the HttpKernel instead.', __METHOD__, ArgumentResolverInterface::class), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated as of 3.1 and will be removed in 4.0. Implement the %s and inject it in the HttpKernel instead.', __METHOD__, ArgumentResolverInterface::class), E_USER_DEPRECATED);
 
         $attributes = $request->attributes->all();
         $arguments = array();
@@ -223,7 +216,7 @@ class ControllerResolver implements ArgumentResolverInterface, ControllerResolve
         }
 
         if (2 !== count($callable)) {
-            return sprintf('Invalid format for controller, expected array(controller, method) or controller::method.');
+            return 'Invalid format for controller, expected array(controller, method) or controller::method.';
         }
 
         list($controller, $method) = $callable;

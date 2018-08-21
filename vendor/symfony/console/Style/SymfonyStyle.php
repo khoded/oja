@@ -40,10 +40,6 @@ class SymfonyStyle extends OutputStyle
     private $lineLength;
     private $bufferedOutput;
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
     public function __construct(InputInterface $input, OutputInterface $output)
     {
         $this->input = $input;
@@ -273,7 +269,7 @@ class SymfonyStyle extends OutputStyle
     {
         $progressBar = parent::createProgressBar($max);
 
-        if ('\\' !== DIRECTORY_SEPARATOR) {
+        if ('\\' !== DIRECTORY_SEPARATOR || 'Hyper' === getenv('TERM_PROGRAM')) {
             $progressBar->setEmptyBarCharacter('░'); // light shade character \u2591
             $progressBar->setProgressCharacter('');
             $progressBar->setBarCharacter('▓'); // dark shade character \u2593
@@ -283,9 +279,7 @@ class SymfonyStyle extends OutputStyle
     }
 
     /**
-     * @param Question $question
-     *
-     * @return string
+     * @return mixed
      */
     public function askQuestion(Question $question)
     {

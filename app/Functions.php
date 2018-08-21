@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 * 	Send mail with custom templates
 * 	$template : E-mail template.
@@ -16,7 +16,7 @@ function mailing($template,$array,$subject,$to) {
 	$message = DB::select("SELECT template FROM templates WHERE code = '".$template."'")[0]->template;
     foreach ($array as $ind => $val) {
         $message = str_replace("{{$ind}}",$val,$message);
-    }   
+    }
     $message = preg_replace('/\{\{(.*?)\}\}/is','',$message);
 	$headers = "MIME-Version: 1.0" . "\r\n";
 	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -64,7 +64,7 @@ function string_cut($text, $length = 100,$end = ''){
 /*
 *   Get user operation system
 */
-function getOS() { 
+function getOS() {
     global $_SERVER;
 	$user_agent = $_SERVER['HTTP_USER_AGENT'];
     $os_platform    =   "Unknown OS Platform";
@@ -93,11 +93,11 @@ function getOS() {
                             '/blackberry/i'         =>  'BlackBerry',
                             '/webos/i'              =>  'Mobile'
                         );
-    foreach ($os_array as $regex => $value) { 
+    foreach ($os_array as $regex => $value) {
         if (preg_match($regex, $user_agent)) {
             $os_platform    =   $value;
         }
-    }   
+    }
     return $os_platform;
 }
 /*
@@ -119,7 +119,7 @@ function getBrowser() {
 							'/konqueror/i'  =>  'Konqueror',
 							'/mobile/i'	 =>  'Handheld Browser'
 						);
-	foreach ($browser_array as $regex => $value) { 
+	foreach ($browser_array as $regex => $value) {
 		if (preg_match($regex, $user_agent)) {
 			$browser	=   $value;
 		}
@@ -132,7 +132,7 @@ function getBrowser() {
 function getCountry() {
 	if (!isset($_COOKIE['country'])) {
 		//get country from api
-		$ch = curl_init('http://freegeoip.net/json/');
+		$ch = curl_init('http://api.ipstack.com/41.58.250.241?access_key=1b478826a244ca44621b0773e1a39fbd&format=1');
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 		$json = '';
 		if (($json = curl_exec($ch)) !== false) {
@@ -141,7 +141,7 @@ function getCountry() {
 			// Save for one month
 			setcookie("country",$country,time()+2592000);
 		}
-		else 
+		else
 		{
 			// return false if api failed
 			$country = false;
@@ -169,7 +169,7 @@ function getReferrer() {
 * 	$level : Time level.
 */
 function timegap($old,$level = 0) {
-	$time = time(); 
+	$time = time();
 	$dif = $time-$old;
 	$names = array('second','minute','hour','day','week','month','year','decade');
 	$length = array(1,60,3600,86400,604800,2630880,31570560,315705600);
@@ -269,7 +269,7 @@ function translate($word){
 		// Desactivate translation
 		return $word;
 	}
-	else 
+	else
 	{
 		$word = escape($word);
 		// Fetching for translation

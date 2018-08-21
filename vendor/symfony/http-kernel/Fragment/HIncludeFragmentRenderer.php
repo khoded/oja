@@ -33,8 +33,6 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
     private $charset;
 
     /**
-     * Constructor.
-     *
      * @param EngineInterface|Environment $templating            An EngineInterface or a Twig instance
      * @param UriSigner                   $signer                A UriSigner instance
      * @param string                      $globalDefaultTemplate The global default content (it can be a template name or the content)
@@ -133,7 +131,7 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
         if ($this->templating instanceof EngineInterface) {
             try {
                 return $this->templating->exists($template);
-            } catch (\InvalidArgumentException $e) {
+            } catch (\Exception $e) {
                 return false;
             }
         }
